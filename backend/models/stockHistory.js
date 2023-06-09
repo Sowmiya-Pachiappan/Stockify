@@ -26,6 +26,8 @@ const StockHistory = sequelize.define(
   },
   { timestamps: true }
 );
-StockHistory.belongsTo(Product);
-Product.hasOne(StockHistory);
+StockHistory.belongsTo(Product, { onDelete: 'cascade' });
+Product.hasOne(StockHistory, {
+  onDelete: 'cascade',
+});
 export default StockHistory;
