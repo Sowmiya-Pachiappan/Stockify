@@ -184,7 +184,7 @@ ProductRouter.delete(
         res.status(500).send({ message: 'Product Not Found' });
       }
     } catch (err) {
-      res.status(500).send({ message: err });
+      res.status(500).send({ message: err.name });
     }
   })
 );
