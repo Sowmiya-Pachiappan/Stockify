@@ -54,7 +54,6 @@ ProductRouter.post(
   expressAsyncHandler(async (req, res) => {
     const t = await sequelize.transaction();
     try {
-      console.log(req.body);
       const product = {
         sku: req.body.sku,
         name: req.body.name,
@@ -64,6 +63,8 @@ ProductRouter.post(
       const createdProduct = await Product.create(product, {
         transaction: t,
       });
+
+      console.log(createdProduct);
       await StockHistory.create(
         {
           productId: createdProduct._id,
@@ -73,6 +74,7 @@ ProductRouter.post(
         { transaction: t }
       )
         .then(async (r) => {
+          console.log(r);
           await t.commit();
           res
             .status(200)
@@ -81,7 +83,7 @@ ProductRouter.post(
         .catch(async (e) => {
           await t.rollback();
           res.status(500).send({
-            message: err,
+            message: e,
           });
         });
     } catch (err) {
