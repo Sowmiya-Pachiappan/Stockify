@@ -38,7 +38,7 @@ const ViewProduct = ({ productId, onClose, show }) => {
   return loading ? (
     <MaskLoader />
   ) : error ? (
-    <Alert type={'error'} />
+    <Alert type={'error'} message={error} />
   ) : (
     product && (
       <Drawer
